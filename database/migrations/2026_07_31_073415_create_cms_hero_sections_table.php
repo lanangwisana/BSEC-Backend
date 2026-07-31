@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('cta_label')->default('Daftar Kelas Trial');
             $table->string('cta_redirect_url')->default('#daftar');
             $table->string('cta_secondary_label')->default('Tanya Via WhatsApp');
-            $table->string('cta_secondary_label')->default('https://wa.me/ 6285606201036');
+            $table->string('cta_secondary_url')->default('https://wa.me/ 6285606201036');
             $table->string('asset_media_url')->default('/images/image 1.png');
             $table->string('floating_badge_text')->default('500+ Siswa Lolos');
             $table->string('floating_badge_subtext')->default('Pengajar PTN favorit berpengalaman.');
