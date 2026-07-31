@@ -26,8 +26,8 @@ class PublishCmsAction
                     ['id' => 1],
                     [
                         'tagline_badge' => $data['hero']['taglineBadge'] ?? 'Bimbel No. 1 di Indonesia',
-                        'headline' => $data['hero']['headline'],
-                        'sub_headline' => $data['hero']['subHeadline'],
+                        'headline' => $data['hero']['headline'] ?? 'Wujudkan Prestasi Akademik Terbaik Bersama BSEC',
+                        'sub_headline' => $data['hero']['subHeadline'] ?? 'Metode belajar cerdas untuk hasil maksimal.',
                         'cta_label' => $data['hero']['ctaLabel'] ?? 'Daftar Kelas Trial',
                         'cta_redirect_url' => $data['hero']['ctaRedirectUrl'] ?? '#daftar',
                         'cta_secondary_label' => $data['hero']['ctaSecondaryLabel'] ?? 'Tanya Via WhatsApp',
@@ -46,7 +46,7 @@ class PublishCmsAction
                     ['id' => 1],
                     [
                         'title' => $data['about']['title'] ?? 'Tentang BSEC',
-                        'subtitle' => $data['about']['subtitle'] ?? '',
+                        'subtitle' => $data['about']['subtitle'] ?? 'Bimbingan belajar profesional yang berkomitmen mencetak generasi unggul',
                         'description_paragraph_1' => $data['about']['descriptionParagraph1'] ?? '',
                         'description_paragraph_2' => $data['about']['descriptionParagraph2'] ?? null,
                         'vision_text' => $data['about']['visionText'] ?? '',
@@ -80,8 +80,8 @@ class PublishCmsAction
                         [
                             'category_id' => $p['categoryId'],
                             'title' => $p['title'],
-                            'description' => $p['description'],
-                            'price_formatted' => $p['priceFormatted'],
+                            'description' => $p['description'] ?? '',
+                            'price_formatted' => $p['priceFormatted'] ?? 'Rp 0',
                             'icon_name' => $p['iconName'] ?? 'school',
                             'target_age' => $p['targetAge'] ?? null,
                             'is_active' => $p['isActive'] ?? true,
@@ -101,8 +101,8 @@ class PublishCmsAction
                             'student_name' => $t['studentName'],
                             'student_class' => $t['studentClass'] ?? 'Class of 2024',
                             'avatar_initials' => $t['avatarInitials'] ?? 'AR',
-                            'target_ptn_passed' => $t['targetPtnPassed'],
-                            'content_snippet' => $t['contentSnippet'],
+                            'target_ptn_passed' => $t['targetPtnPassed'] ?? 'PTN Target',
+                            'content_snippet' => $t['contentSnippet'] ?? '',
                             'avatar_url' => $t['avatarUrl'] ?? null,
                             'is_active' => $t['isActive'] ?? true,
                         ]
@@ -118,7 +118,7 @@ class PublishCmsAction
                         [
                             'icon_name' => $adv['iconName'] ?? 'star',
                             'title' => $adv['title'],
-                            'description' => $adv['description'],
+                            'description' => $adv['description'] ?? '',
                             'sort_order' => $adv['sortOrder'] ?? 1,
                         ]
                     );
