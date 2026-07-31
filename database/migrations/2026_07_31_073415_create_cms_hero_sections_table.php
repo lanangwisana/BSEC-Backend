@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('cms_hero_sections', function (Blueprint $table) {
             $table->id();
+            $table->string('tagline_badge')->default('Bimbel No. 1 di Indonesia');
+            $table->string('headline');
+            $table->text('sub_headline');
+            $table->string('cta_label')->default('Daftar Kelas Trial');
+            $table->string('cta_redirect_url')->default('#daftar');
+            $table->string('cta_secondary_label')->default('Tanya Via WhatsApp');
+            $table->string('cta_secondary_label')->default('https://wa.me/ 6285606201036');
+            $table->string('asset_media_url')->default('/images/image 1.png');
+            $table->string('floating_badge_text')->default('500+ Siswa Lolos');
+            $table->string('floating_badge_subtext')->default('Pengajar PTN favorit berpengalaman.');
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
     }
