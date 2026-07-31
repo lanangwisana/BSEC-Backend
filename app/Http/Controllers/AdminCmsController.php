@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CmsHeroSection;
 use App\Models\CmsAboutSection;
 use App\Models\CmsProgramCategory;
@@ -18,7 +17,7 @@ use Illuminate\Http\JsonResponse;
 
 class AdminCmsController extends Controller
 {
-     /**
+    /**
      * Ambil data draft CMS untuk di-load oleh halaman Admin CMS.
      */
     public function sections(): JsonResponse
@@ -35,13 +34,15 @@ class AdminCmsController extends Controller
         ];
         return response()->json(new LandingPageResource($payload));
     }
+
     /**
      * Simpan & Publikasikan perubahan CMS dari Admin Panel ke PostgreSQL.
      */
     public function publish(PublishCmsRequest $request, PublishCmsAction $action): JsonResponse
     {
-        $validatedData = $request->validated();
-        $action->execute($validatedData);
+        $data = $request->all();
+        $action->execute($data);
+        
         return response()->json([
             'success' => true,
             'message' => 'Konten CMS berhasil disimpan dan dipublikasikan ke PostgreSQL.',
