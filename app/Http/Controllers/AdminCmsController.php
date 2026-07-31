@@ -14,6 +14,7 @@ use App\Http\Requests\PublishCmsRequest;
 use App\Actions\PublishCmsAction;
 use App\Http\Resources\LandingPageResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AdminCmsController extends Controller
 {
@@ -23,16 +24,16 @@ class AdminCmsController extends Controller
     public function sections(): JsonResponse
     {
         $payload = [
-            'hero' => CmsHeroSection::find(1),
-            'about' => CmsAboutSection::find(1),
-            'categories' => CmsProgramCategory::orderBy('sort_order')->get(),
-            'programs' => CmsProgram::orderBy('sort_order')->get(),
-            'testimonials' => CmsTestimonial::orderBy('order')->get(),
-            'advantages' => CmsAdvantage::orderBy('sort_order')->get(),
+            'hero'        => CmsHeroSection::find(1),
+            'about'       => CmsAboutSection::find(1),
+            'categories'  => CmsProgramCategory::orderBy('sort_order')->get(),
+            'programs'    => CmsProgram::orderBy('sort_order')->get(),
+            'testimonials'=> CmsTestimonial::orderBy('order')->get(),
+            'advantages'  => CmsAdvantage::orderBy('sort_order')->get(),
             'leadCapture' => CmsLeadCapture::find(1),
-            'settings' => CmsSetting::pluck('value', 'key')->all(),
+            'settings'    => CmsSetting::pluck('value', 'key')->all(),
         ];
-        return response()->json(new LandingPageResource($payload));
+        return response()->json(LandingPageResource::make($payload));
     }
 
     /**
@@ -42,10 +43,30 @@ class AdminCmsController extends Controller
     {
         $data = $request->all();
         $action->execute($data);
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Konten CMS berhasil disimpan dan dipublikasikan ke PostgreSQL.',
         ], 200);
+    }
+
+    /**
+     * Upload hero image (JPG/PNG) dan kembalikan URL publiknya.
+     * Admin tinggal pilih file → URL otomatis masuk ke payload Publish Changes.
+     */
+    public function uploadHeroImage(Request $request): JsonResponse
+    {
+        $request->validate([
+            'assetMedia' => 'required|file|mimes:jpeg,png|max:5120', // maks 5 MB
+        ]);
+
+        // Simpan ke storage/app/public/hero_images (disk public)
+        $path = $request->file('assetMedia')->store('hero_images', 'public');
+
+        // URL publik relatif: /storage/hero_images/xxxx.png
+        // Menggunakan path langsung (menghindari pemanggilan url() pada Filesystem contract)
+        $url = '/storage/' . $path;
+
+        return response()->json(['url' => $url], 201);
     }
 }
