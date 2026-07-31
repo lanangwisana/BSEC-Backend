@@ -10,3 +10,4 @@ Route::get('/landing-page', [LandingPageController::class, 'index']);
 // Admin CMS APIs
 Route::get('/admin/cms/sections', [AdminCmsController::class, 'sections']);
 Route::post('/admin/cms/publish', [AdminCmsController::class, 'publish']);
+Route::post('/admin/cms/upload-hero-image', [AdminCmsController::class, 'uploadHeroImage']);
