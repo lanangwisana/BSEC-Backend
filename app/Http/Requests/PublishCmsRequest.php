@@ -2,67 +2,72 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PublishCmsRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
             // Hero Section Validation
-            'hero' => 'required|array',
-            'hero.taglineBadge' => 'nullable|string|max:255',
-            'hero.headline' => 'required|string',
-            'hero.subHeadline' => 'required|string',
-            'hero.ctaLabel' => 'required|string|max:255',
-            'hero.ctaRedirectUrl' => 'required|string|max:255',
-            'hero.ctaSecondaryLabel' => 'nullable|string|max:255',
-            'hero.ctaSecondaryUrl' => 'nullable|string|max:255',
+            'hero' => 'nullable|array',
+            'hero.taglineBadge' => 'nullable|string',
+            'hero.headline' => 'nullable|string',
+            'hero.subHeadline' => 'nullable|string',
+            'hero.ctaLabel' => 'nullable|string',
+            'hero.ctaRedirectUrl' => 'nullable|string',
+            'hero.ctaSecondaryLabel' => 'nullable|string',
+            'hero.ctaSecondaryUrl' => 'nullable|string',
+            'hero.assetFileName' => 'nullable|string',
+            'hero.assetHint' => 'nullable|string',
             'hero.assetMediaUrl' => 'nullable|string',
-            'hero.floatingBadgeText' => 'nullable|string|max:255',
-            'hero.floatingBadgeSubtext' => 'nullable|string|max:255',
-            'hero.isVisible' => 'boolean',
+            'hero.floatingBadgeText' => 'nullable|string',
+            'hero.floatingBadgeSubtext' => 'nullable|string',
+            'hero.isVisible' => 'nullable|boolean',
+
             // Categories & Programs Validation
             'programCategories' => 'nullable|array',
             'programCategories.*.id' => 'required|string',
             'programCategories.*.name' => 'required|string',
             'programCategories.*.sortOrder' => 'nullable|integer',
+
             'programs' => 'nullable|array',
             'programs.*.id' => 'required|string',
             'programs.*.categoryId' => 'required|string',
             'programs.*.title' => 'required|string',
-            'programs.*.description' => 'required|string',
-            'programs.*.priceFormatted' => 'required|string',
+            'programs.*.description' => 'nullable|string',
+            'programs.*.priceFormatted' => 'nullable|string',
             'programs.*.iconName' => 'nullable|string',
-            'programs.*.isActive' => 'boolean',
+            'programs.*.targetAge' => 'nullable|string',
+            'programs.*.isActive' => 'nullable|boolean',
+            'programs.*.sortOrder' => 'nullable|integer',
+
             // Testimonials Validation
             'testimonials' => 'nullable|array',
             'testimonials.*.id' => 'required|string',
+            'testimonials.*.order' => 'nullable|integer',
             'testimonials.*.studentName' => 'required|string',
-            'testimonials.*.targetPtnPassed' => 'required|string',
-            'testimonials.*.contentSnippet' => 'required|string',
-            'testimonials.*.isActive' => 'boolean',
+            'testimonials.*.studentClass' => 'nullable|string',
+            'testimonials.*.avatarInitials' => 'nullable|string',
+            'testimonials.*.targetPtnPassed' => 'nullable|string',
+            'testimonials.*.contentSnippet' => 'nullable|string',
+            'testimonials.*.avatarUrl' => 'nullable|string',
+            'testimonials.*.isActive' => 'nullable|boolean',
+
             // About Section Validation
-            'about' => 'required|array',
-            'about.title' => 'required|string|max:255',
-            'about.subtitle' => 'required|string',
-            'about.descriptionParagraph1' => 'required|string',
-            'about.visionText' => 'required|string',
+            'about' => 'nullable|array',
+            'about.title' => 'nullable|string',
+            'about.subtitle' => 'nullable|string',
+            'about.descriptionParagraph1' => 'nullable|string',
+            'about.descriptionParagraph2' => 'nullable|string',
+            'about.visionText' => 'nullable|string',
             'about.missions' => 'nullable|array',
+            'about.highlights' => 'nullable|array',
             'about.statCard1Number' => 'nullable|string',
             'about.statCard1Label' => 'nullable|string',
             'about.statCard2Number' => 'nullable|string',
@@ -71,22 +76,29 @@ class PublishCmsRequest extends FormRequest
             'about.statCard3Label' => 'nullable|string',
             'about.statCard4Number' => 'nullable|string',
             'about.statCard4Label' => 'nullable|string',
+
             // Advantages Validation
             'advantages' => 'nullable|array',
             'advantages.*.id' => 'required|string',
+            'advantages.*.iconName' => 'nullable|string',
             'advantages.*.title' => 'required|string',
-            'advantages.*.description' => 'required|string',
+            'advantages.*.description' => 'nullable|string',
+            'advantages.*.sortOrder' => 'nullable|integer',
+
             // Lead Capture CTA Validation
             'leadCapture' => 'nullable|array',
             'leadCapture.title' => 'nullable|string',
             'leadCapture.subtitle' => 'nullable|string',
             'leadCapture.checklistItems' => 'nullable|array',
+
             // Footer Validation
-            'footer' => 'required|array',
-            'footer.aboutText' => 'required|string',
-            'footer.companyAddress' => 'required|string',
-            'footer.companyPhone' => 'required|string',
-            'footer.companyEmail' => 'required|email',
+            'footer' => 'nullable|array',
+            'footer.aboutText' => 'nullable|string',
+            'footer.companyAddress' => 'nullable|string',
+            'footer.companyPhone' => 'nullable|string',
+            'footer.companyEmail' => 'nullable|string',
+            'footer.socialLinks' => 'nullable|array',
+
             // Section Titles Validation
             'advantagesTitle' => 'nullable|string',
             'advantagesSubtitle' => 'nullable|string',
