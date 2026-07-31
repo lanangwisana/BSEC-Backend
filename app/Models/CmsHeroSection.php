@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CmsHeroSection extends Model
 {
     use HasFactory;
-    protected $table = 'cms_hero_section';
+    protected $table = 'cms_hero_sections';
     protected $fillable = [
         'tagline_badge',
         'headline',
