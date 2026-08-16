@@ -15,23 +15,33 @@ use App\Http\Requests\PublishCmsRequest;
 use App\Actions\PublishCmsAction;
 use App\Http\Resources\LandingPageResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
+
 class LandingPageController extends Controller
 {
-        /**
-     * Mengembalikan data lengkap landing page untuk publik.
+    /**
+     * Mengembalikan data lengkap landing page untuk publik dengan Redis/Cache layer.
      */
     public function index(): JsonResponse
     {
-        $payload = [
-            'hero' => CmsHeroSection::find(1),
-            'about' => CmsAboutSection::find(1),
-            'categories' => CmsProgramCategory::orderBy('sort_order')->get(),
-            'programs' => CmsProgram::where('is_active', true)->orderBy('sort_order')->get(),
-            'testimonials' => CmsTestimonial::where('is_active', true)->orderBy('order')->get(),
-            'advantages' => CmsAdvantage::orderBy('sort_order')->get(),
-            'leadCapture' => CmsLeadCapture::find(1),
-            'settings' => CmsSetting::pluck('value', 'key')->all(),
-        ];
-        return response()->json(new LandingPageResource($payload));
+        $data = Cache::remember('landing_page_data', 86400, function () {
+            $payload = [
+                'hero' => CmsHeroSection::find(1),
+                'about' => CmsAboutSection::find(1),
+                'categories' => CmsProgramCategory::orderBy('sort_order')->get(),
+                'programs' => CmsProgram::where('is_active', true)->orderBy('sort_order')->get(),
+                'testimonials' => CmsTestimonial::where('is_active', true)->orderBy('order')->get(),
+                'advantages' => CmsAdvantage::orderBy('sort_order')->get(),
+                'leadCapture' => CmsLeadCapture::find(1),
+                'settings' => CmsSetting::pluck('value', 'key')->all(),
+            ];
+            return (new LandingPageResource($payload))->resolve();
+        });
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'cached' => true,
+        ]);
     }
 }
