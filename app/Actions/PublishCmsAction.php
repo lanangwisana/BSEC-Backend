@@ -11,6 +11,7 @@ use App\Models\CmsAdvantage;
 use App\Models\CmsLeadCapture;
 use App\Models\CmsSetting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class PublishCmsAction
 {
@@ -19,7 +20,7 @@ class PublishCmsAction
      */
     public function execute(array $data): bool
     {
-        return DB::transaction(function () use ($data) {
+        $result = DB::transaction(function () use ($data) {
             // 1. Update / Create Hero Section
             if (isset($data['hero'])) {
                 CmsHeroSection::updateOrCreate(
@@ -158,5 +159,10 @@ class PublishCmsAction
 
             return true;
         });
+
+        // Invalidate public landing page cache instantly upon publication
+        Cache::forget('landing_page_data');
+
+        return $result;
     }
 }
