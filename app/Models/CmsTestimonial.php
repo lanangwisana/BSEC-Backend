@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CmsTestimonial extends Model
 {
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $table = "cms_testimonials";
 
     protected $fillable = [
