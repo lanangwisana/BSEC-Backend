@@ -18,6 +18,8 @@ class CmsProgram extends Model
         'price_formatted',
         'icon_name',
         'target_age',
+        'learning_objectives',
+        'learning_focus',
         'is_active',
         'sort_order',
     ];

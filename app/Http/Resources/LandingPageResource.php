@@ -49,6 +49,8 @@ class LandingPageResource extends JsonResource
                 'priceFormatted' => $p->price_formatted,
                 'iconName' => $p->icon_name ?? 'school',
                 'targetAge' => $p->target_age ?? '',
+                'learningObjectives' => $p->learning_objectives ?? '',
+                'learningFocus' => $p->learning_focus ?? '',
                 'isActive' => $p->is_active ?? true,
                 'sortOrder' => $p->sort_order,
             ])->values()->all(),

@@ -44,6 +44,8 @@ class PublishCmsRequest extends FormRequest
             'programs.*.priceFormatted' => 'nullable|string',
             'programs.*.iconName' => 'nullable|string',
             'programs.*.targetAge' => 'nullable|string',
+            'programs.*.learningObjectives' => 'nullable|string',
+            'programs.*.learningFocus' => 'nullable|string',
             'programs.*.isActive' => 'nullable|boolean',
             'programs.*.sortOrder' => 'nullable|integer',
 

@@ -92,6 +92,8 @@ class PublishCmsAction
                             'price_formatted' => $p['priceFormatted'] ?? 'Rp 0',
                             'icon_name' => $p['iconName'] ?? 'school',
                             'target_age' => $p['targetAge'] ?? null,
+                            'learning_objectives' => $p['learningObjectives'] ?? null,
+                            'learning_focus' => $p['learningFocus'] ?? null,
                             'is_active' => $p['isActive'] ?? true,
                             'sort_order' => $p['sortOrder'] ?? 1,
                         ]
