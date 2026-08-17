@@ -64,17 +64,24 @@ class PublishCmsAction
                 );
             }
 
-            // 3. Sync Categories & Programs
+            // 3. Sync Categories & Programs (dengan penanganan Hapus/Delete)
             if (isset($data['programCategories'])) {
+                $catIds = array_map(fn($item) => $item['id'], $data['programCategories']);
                 foreach ($data['programCategories'] as $cat) {
                     CmsProgramCategory::updateOrCreate(
                         ['id' => $cat['id']],
                         ['name' => $cat['name'], 'sort_order' => $cat['sortOrder'] ?? 1]
                     );
                 }
+                if (!empty($catIds)) {
+                    CmsProgramCategory::whereNotIn('id', $catIds)->delete();
+                } else {
+                    CmsProgramCategory::query()->delete();
+                }
             }
 
             if (isset($data['programs'])) {
+                $progIds = array_map(fn($item) => $item['id'], $data['programs']);
                 foreach ($data['programs'] as $p) {
                     CmsProgram::updateOrCreate(
                         ['id' => $p['id']],
@@ -90,10 +97,16 @@ class PublishCmsAction
                         ]
                     );
                 }
+                if (!empty($progIds)) {
+                    CmsProgram::whereNotIn('id', $progIds)->delete();
+                } else {
+                    CmsProgram::query()->delete();
+                }
             }
 
-            // 4. Sync Testimonials
+            // 4. Sync Testimonials (dengan penanganan Hapus/Delete)
             if (isset($data['testimonials'])) {
+                $testiIds = array_map(fn($item) => $item['id'], $data['testimonials']);
                 foreach ($data['testimonials'] as $t) {
                     CmsTestimonial::updateOrCreate(
                         ['id' => $t['id']],
@@ -109,10 +122,16 @@ class PublishCmsAction
                         ]
                     );
                 }
+                if (!empty($testiIds)) {
+                    CmsTestimonial::whereNotIn('id', $testiIds)->delete();
+                } else {
+                    CmsTestimonial::query()->delete();
+                }
             }
 
-            // 5. Sync Advantages
+            // 5. Sync Advantages (dengan penanganan Hapus/Delete)
             if (isset($data['advantages'])) {
+                $advIds = array_map(fn($item) => $item['id'], $data['advantages']);
                 foreach ($data['advantages'] as $adv) {
                     CmsAdvantage::updateOrCreate(
                         ['id' => $adv['id']],
@@ -123,6 +142,11 @@ class PublishCmsAction
                             'sort_order' => $adv['sortOrder'] ?? 1,
                         ]
                     );
+                }
+                if (!empty($advIds)) {
+                    CmsAdvantage::whereNotIn('id', $advIds)->delete();
+                } else {
+                    CmsAdvantage::query()->delete();
                 }
             }
 
