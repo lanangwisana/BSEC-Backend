@@ -8,6 +8,7 @@ use App\Models\CmsAboutSection;
 use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
+use App\Models\CmsTestimonialSection;
 use App\Models\CmsAdvantage;
 use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
@@ -32,6 +33,7 @@ class LandingPageController extends Controller
                 'categories' => CmsProgramCategory::orderBy('sort_order')->get(),
                 'programs' => CmsProgram::where('is_active', true)->orderBy('sort_order')->get(),
                 'testimonials' => CmsTestimonial::where('is_active', true)->orderBy('order')->get(),
+                'testimonialSection' => CmsTestimonialSection::find(1),
                 'advantages' => CmsAdvantage::orderBy('sort_order')->get(),
                 'advantageSection' => CmsAdvantageSection::find(1),
                 'leadCapture' => CmsLeadCapture::find(1),
