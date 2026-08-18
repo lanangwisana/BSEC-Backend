@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->integer('order')->default(1);
             $table->string('student_name');
-            $table->string('student_class')->default('Class of 2024');
+            $table->string('student_class')->nullable();
             $table->string('avatar_initials')->default('AR');
-            $table->string('target_ptn_passed');
+            $table->string('target_ptn_passed')->nullable();
             $table->text('content_snippet');
             $table->string('avatar_url')->nullable();
             $table->boolean('is_active')->default(true);
