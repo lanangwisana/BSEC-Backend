@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('cms_program_categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->string('price_formatted');
+            $table->string('price_formatted')->nullable();
             $table->string('icon_name')->default('school');
             $table->string('target_age')->nullable();
             $table->boolean('is_active')->default(true);

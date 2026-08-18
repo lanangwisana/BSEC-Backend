@@ -91,7 +91,7 @@ class PublishCmsAction
                             'category_id' => $p['categoryId'],
                             'title' => $p['title'],
                             'description' => $p['description'] ?? '',
-                            'price_formatted' => $p['priceFormatted'] ?? 'Rp 0',
+                            'price_formatted' => !empty($p['priceFormatted']) ? $p['priceFormatted'] : null,
                             'icon_name' => $p['iconName'] ?? 'school',
                             'target_age' => $p['targetAge'] ?? null,
                             'learning_objectives' => $p['learningObjectives'] ?? null,
