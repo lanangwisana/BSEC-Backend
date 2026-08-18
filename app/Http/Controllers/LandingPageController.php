@@ -9,6 +9,7 @@ use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
 use App\Models\CmsAdvantage;
+use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
 use App\Models\CmsSetting;
 use App\Http\Requests\PublishCmsRequest;
@@ -32,6 +33,7 @@ class LandingPageController extends Controller
                 'programs' => CmsProgram::where('is_active', true)->orderBy('sort_order')->get(),
                 'testimonials' => CmsTestimonial::where('is_active', true)->orderBy('order')->get(),
                 'advantages' => CmsAdvantage::orderBy('sort_order')->get(),
+                'advantageSection' => CmsAdvantageSection::find(1),
                 'leadCapture' => CmsLeadCapture::find(1),
                 'settings' => CmsSetting::pluck('value', 'key')->all(),
             ];
