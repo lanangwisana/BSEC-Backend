@@ -7,6 +7,7 @@ use App\Models\CmsAboutSection;
 use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
+use App\Models\CmsTestimonialSection;
 use App\Models\CmsAdvantage;
 use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
@@ -116,9 +117,9 @@ class PublishCmsAction
                         [
                             'order' => $t['order'] ?? 1,
                             'student_name' => $t['studentName'],
-                            'student_class' => $t['studentClass'] ?? 'Class of 2024',
+                            'student_class' => $t['studentClass'] ?? null,
                             'avatar_initials' => $t['avatarInitials'] ?? 'AR',
-                            'target_ptn_passed' => $t['targetPtnPassed'] ?? 'PTN Target',
+                            'target_ptn_passed' => $t['targetPtnPassed'] ?? null,
                             'content_snippet' => $t['contentSnippet'] ?? '',
                             'avatar_url' => $t['avatarUrl'] ?? null,
                             'is_active' => $t['isActive'] ?? true,
@@ -130,6 +131,16 @@ class PublishCmsAction
                 } else {
                     CmsTestimonial::query()->delete();
                 }
+            }
+
+            // 4b. Update / Create Testimonial Section (Title)
+            if (isset($data['testimonialsTitle'])) {
+                CmsTestimonialSection::updateOrCreate(
+                    ['id' => 1],
+                    [
+                        'title' => $data['testimonialsTitle'] ?? 'Kisah Sukses Siswa',
+                    ]
+                );
             }
 
             // 5. Sync Advantages (dengan penanganan Hapus/Delete)
