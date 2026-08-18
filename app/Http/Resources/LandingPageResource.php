@@ -20,6 +20,7 @@ class LandingPageResource extends JsonResource
         $programs = $this['programs'] ?? [];
         $testimonials = $this['testimonials'] ?? [];
         $advantages = $this['advantages'] ?? [];
+        $advantageSection = $this['advantageSection'] ?? null;
         $leadCapture = $this['leadCapture'] ?? null;
         $settings = $this['settings'] ?? [];
         return [
@@ -99,8 +100,8 @@ class LandingPageResource extends JsonResource
                 'companyPhone' => $settings['footer_company_phone'] ?? '(021) 1234-5678',
                 'companyEmail' => $settings['footer_company_email'] ?? 'info@bsec.com',
             ],
-            'advantagesTitle' => $settings['advantages_title'] ?? 'MENGAPA BSEC?',
-            'advantagesSubtitle' => $settings['advantages_subtitle'] ?? 'Dedikasi kami untuk masa depan cerah anak Anda',
+            'advantagesTitle' => $advantageSection->title ?? $settings['advantages_title'] ?? 'MENGAPA BSEC?',
+            'advantagesSubtitle' => $advantageSection->subtitle ?? $settings['advantages_subtitle'] ?? 'Dedikasi kami untuk masa depan cerah anak Anda',
             'programsTitle' => $settings['programs_title'] ?? 'Program Unggulan',
             'programsSubtitle' => $settings['programs_subtitle'] ?? 'Pilih jenjang yang sesuai dengan kebutuhan akademik Anda',
             'testimonialsTitle' => $settings['testimonials_title'] ?? 'Kisah Sukses Siswa',
