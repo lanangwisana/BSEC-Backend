@@ -19,6 +19,7 @@ class LandingPageResource extends JsonResource
         $categories = $this['categories'] ?? [];
         $programs = $this['programs'] ?? [];
         $testimonials = $this['testimonials'] ?? [];
+        $testimonialSection = $this['testimonialSection'] ?? null;
         $advantages = $this['advantages'] ?? [];
         $advantageSection = $this['advantageSection'] ?? null;
         $leadCapture = $this['leadCapture'] ?? null;
@@ -59,9 +60,9 @@ class LandingPageResource extends JsonResource
                 'id' => $t->id,
                 'order' => $t->order,
                 'studentName' => $t->student_name,
-                'studentClass' => $t->student_class ?? 'Class of 2024',
+                'studentClass' => $t->student_class ?? null,
                 'avatarInitials' => $t->avatar_initials ?? 'AR',
-                'targetPtnPassed' => $t->target_ptn_passed,
+                'targetPtnPassed' => $t->target_ptn_passed ?? null,
                 'contentSnippet' => $t->content_snippet,
                 'avatarUrl' => $t->avatar_url ?? null,
                 'isActive' => $t->is_active ?? true,
@@ -104,7 +105,7 @@ class LandingPageResource extends JsonResource
             'advantagesSubtitle' => $advantageSection->subtitle ?? $settings['advantages_subtitle'] ?? 'Dedikasi kami untuk masa depan cerah anak Anda',
             'programsTitle' => $settings['programs_title'] ?? 'Program Unggulan',
             'programsSubtitle' => $settings['programs_subtitle'] ?? 'Pilih jenjang yang sesuai dengan kebutuhan akademik Anda',
-            'testimonialsTitle' => $settings['testimonials_title'] ?? 'Kisah Sukses Siswa',
+            'testimonialsTitle' => $testimonialSection->title ?? $settings['testimonials_title'] ?? 'Kisah Sukses Siswa',
         ];
     }
 }
