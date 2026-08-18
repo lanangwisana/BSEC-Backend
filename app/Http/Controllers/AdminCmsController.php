@@ -7,6 +7,7 @@ use App\Models\CmsAboutSection;
 use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
+use App\Models\CmsTestimonialSection;
 use App\Models\CmsAdvantage;
 use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
@@ -25,15 +26,16 @@ class AdminCmsController extends Controller
     public function sections(): JsonResponse
     {
         $payload = [
-            'hero'             => CmsHeroSection::find(1),
-            'about'            => CmsAboutSection::find(1),
-            'categories'       => CmsProgramCategory::orderBy('sort_order')->get(),
-            'programs'         => CmsProgram::orderBy('sort_order')->get(),
-            'testimonials'     => CmsTestimonial::orderBy('order')->get(),
-            'advantages'       => CmsAdvantage::orderBy('sort_order')->get(),
-            'advantageSection' => CmsAdvantageSection::find(1),
-            'leadCapture'      => CmsLeadCapture::find(1),
-            'settings'         => CmsSetting::pluck('value', 'key')->all(),
+            'hero'               => CmsHeroSection::find(1),
+            'about'              => CmsAboutSection::find(1),
+            'categories'         => CmsProgramCategory::orderBy('sort_order')->get(),
+            'programs'           => CmsProgram::orderBy('sort_order')->get(),
+            'testimonials'       => CmsTestimonial::orderBy('order')->get(),
+            'testimonialSection' => CmsTestimonialSection::find(1),
+            'advantages'         => CmsAdvantage::orderBy('sort_order')->get(),
+            'advantageSection'   => CmsAdvantageSection::find(1),
+            'leadCapture'        => CmsLeadCapture::find(1),
+            'settings'           => CmsSetting::pluck('value', 'key')->all(),
         ];
         return response()->json(LandingPageResource::make($payload));
     }
@@ -67,6 +69,21 @@ class AdminCmsController extends Controller
 
         // URL publik relatif: /storage/hero_images/xxxx.png
         // Menggunakan path langsung (menghindari pemanggilan url() pada Filesystem contract)
+        $url = '/storage/' . $path;
+
+        return response()->json(['url' => $url], 201);
+    }
+
+    /**
+     * Upload avatar image (JPG/PNG/WEBP) untuk testimoni siswa.
+     */
+    public function uploadAvatarImage(Request $request): JsonResponse
+    {
+        $request->validate([
+            'avatarMedia' => 'required|file|mimes:jpeg,jpg,png,webp|max:5120',
+        ]);
+
+        $path = $request->file('avatarMedia')->store('avatar_images', 'public');
         $url = '/storage/' . $path;
 
         return response()->json(['url' => $url], 201);
