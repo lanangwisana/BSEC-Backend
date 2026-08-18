@@ -8,6 +8,7 @@ use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
 use App\Models\CmsAdvantage;
+use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
 use App\Models\CmsSetting;
 use Illuminate\Support\Facades\DB;
@@ -150,6 +151,17 @@ class PublishCmsAction
                 } else {
                     CmsAdvantage::query()->delete();
                 }
+            }
+
+            // 5b. Update / Create Advantage Section (Title & Subtitle)
+            if (isset($data['advantagesTitle']) || isset($data['advantagesSubtitle'])) {
+                CmsAdvantageSection::updateOrCreate(
+                    ['id' => 1],
+                    [
+                        'title' => $data['advantagesTitle'] ?? 'MENGAPA BSEC?',
+                        'subtitle' => $data['advantagesSubtitle'] ?? 'Dedikasi kami untuk masa depan cerah anak Anda',
+                    ]
+                );
             }
 
             // 6. Update / Create Lead Capture CTA
