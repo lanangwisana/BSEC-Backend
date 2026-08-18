@@ -8,6 +8,7 @@ use App\Models\CmsProgramCategory;
 use App\Models\CmsProgram;
 use App\Models\CmsTestimonial;
 use App\Models\CmsAdvantage;
+use App\Models\CmsAdvantageSection;
 use App\Models\CmsLeadCapture;
 use App\Models\CmsSetting;
 use App\Http\Requests\PublishCmsRequest;
@@ -24,14 +25,15 @@ class AdminCmsController extends Controller
     public function sections(): JsonResponse
     {
         $payload = [
-            'hero'        => CmsHeroSection::find(1),
-            'about'       => CmsAboutSection::find(1),
-            'categories'  => CmsProgramCategory::orderBy('sort_order')->get(),
-            'programs'    => CmsProgram::orderBy('sort_order')->get(),
-            'testimonials'=> CmsTestimonial::orderBy('order')->get(),
-            'advantages'  => CmsAdvantage::orderBy('sort_order')->get(),
-            'leadCapture' => CmsLeadCapture::find(1),
-            'settings'    => CmsSetting::pluck('value', 'key')->all(),
+            'hero'             => CmsHeroSection::find(1),
+            'about'            => CmsAboutSection::find(1),
+            'categories'       => CmsProgramCategory::orderBy('sort_order')->get(),
+            'programs'         => CmsProgram::orderBy('sort_order')->get(),
+            'testimonials'     => CmsTestimonial::orderBy('order')->get(),
+            'advantages'       => CmsAdvantage::orderBy('sort_order')->get(),
+            'advantageSection' => CmsAdvantageSection::find(1),
+            'leadCapture'      => CmsLeadCapture::find(1),
+            'settings'         => CmsSetting::pluck('value', 'key')->all(),
         ];
         return response()->json(LandingPageResource::make($payload));
     }
